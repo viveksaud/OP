@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     padding: '16px 0 10px'
   },
   title: {
-    padding:`Rs{theme.spacing(3)}px Rs{theme.spacing(2.5)}px Rs{theme.spacing(2)}px`,
+    padding:`${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(2)}px`,
     color: theme.palette.openTitle,
     width: '100%'
   },

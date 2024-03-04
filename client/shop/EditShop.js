@@ -111,7 +111,7 @@ export default function EditShop ({match}) {
   }
 
     const logoUrl = values.id
-          ? `/api/shops/logo/Rs{values.id}?Rs{new Date().getTime()}`
+          ? `/api/shops/logo/${values.id}?${new Date().getTime()}`
           : '/api/shops/defaultphoto'
     if (values.redirect) {
       return (<Redirect to={'/seller/shops'}/>)

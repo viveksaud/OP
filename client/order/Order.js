@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import {makeStyles} from '@material-ui/core/styles'
 import {read} from './api-order.js'
+import { readp } from '../product/api-product.js'
 import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
@@ -98,7 +99,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Order({match}) {
   const classes = useStyles()
-  const [order, setOrder] = useState({products:[], delivery_address:{}})
+  const [order, setOrder] = useState({products:[], delivery_address:{}});
+  const [product, setProduct] = useState({});
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -108,10 +110,18 @@ export default function Order({match}) {
     }).then((data) => {
       if (data.error) {
         console.log(data.error)
-      } else {
+      } else {   
         setOrder(data)
       }
     })
+
+    readp({
+      productId: match.params.orderId
+    }).then((data) => {
+      if (data.error){console.log(data.error)}
+      else{setProduct(data)}
+    })
+
     return function cleanup(){
       abortController.abort()
     }
@@ -135,20 +145,20 @@ export default function Order({match}) {
         <Grid container spacing={4}>
             <Grid item xs={7} sm={7}>
                 <Card className={classes.innerCardItems}>
-                  {order.products.map((item, i) => {
+                  {order.products.map((item, i) => {         
                     return  <span key={i}>
                       <Card className={classes.cart} >
                         <CardMedia
                           className={classes.cover}
-                          image={'/api/product/image/'+item.product._id}
-                          title={item.product.name}
+                          image={'/api/product/image/'+item.product}
+                          title={item.product}
                         />
                         <div className={classes.details}>
                           <CardContent className={classes.content}>
-                            <Link to={'/product/'+item.product._id}><Typography type="title" component="h3" className={classes.productTitle} color="primary">{item.product.name}</Typography></Link>
-                            <Typography type="subheading" component="h3" className={classes.itemShop} color="primary">$ {item.product.price} x {item.quantity}</Typography>
+                            <Link to={'/product/'+item.product}><Typography type="title" component="h3" className={classes.productTitle} color="primary">{item.product}</Typography></Link>
+                            <Typography type="subheading" component="h3" className={classes.itemShop} color="primary">Rs {item.product.price} x {item.quantity}</Typography>
                             <span className={classes.itemTotal}>Rs{item.product.price * item.quantity}</span>
-                            <span className={classes.itemShop}>Shop: {item.shop.name}</span>
+                            <span className={classes.itemShop}>Shop: {item.shop}</span>
                             <Typography type="subheading" component="h3" color={item.status == "Cancelled" ? "error":"secondary"}>Status: {item.status}</Typography>
                           </CardContent>
                         </div>

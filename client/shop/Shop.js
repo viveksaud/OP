@@ -95,7 +95,7 @@ export default function Shop({match}) {
   }, [match.params.shopId])
 
     const logoUrl = shop._id
-          ? `/api/shops/logo/Rs{shop._id}?Rs{new Date().getTime()}`
+          ? `/api/shops/logo/${shop._id}?${new Date().getTime()}`
           : '/api/shops/defaultphoto'
     return (<div className={classes.root}>
       <Grid container spacing={8}>

@@ -1,4 +1,4 @@
-// const orderService = require('../../server/services/order_services')
+
 // const axios = require("axios");
 // const crypto = require("crypto");
 // const { callKhalti } = require("../../server/controllers/khalti_controller");
@@ -25,50 +25,8 @@ const create = async (params, credentials, order) => {
       console.log(response);
       return response.json()
     }catch(err) {
-      console.log(err)
+      console.log(err.message)
     }
-
-  // const createOrder = async (req, res) => {
-  // try {
-  //   console.log(req.body);
-  //   const order = await orderService.save(req.body);
-  //   const signature = this.createSignature(
-  //     `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
-  //   );
-  //   if (order.payment_method === "esewa") {
-  //     const formData = {
-  //       amount: order.amount,
-  //       failure_url: "http://localhost:3000",
-  //       product_delivery_charge: "0",
-  //       product_service_charge: "0",
-  //       product_code: "EPAYTEST",
-  //       signature: signature,
-  //       signed_field_names: "total_amount,transaction_uuid,product_code",
-  //       success_url: "http://localhost:3000/api/esewa/success",
-  //       tax_amount: "0",
-  //       total_amount: order.amount,
-  //       transaction_uuid: order._id,
-  //     };
-  //     res.json({
-  //       message: "Order Created Sucessfully",
-  //       order,
-  //       payment_method: "esewa",
-  //       formData,
-  //     });
-  //   } else if (order.payment_method === "khalti") {
-  //     const formData = {
-  //       return_url: "http://localhost:3000/api/khalti/callback",
-  //       website_url: "http://localhost:3000",
-  //       amount: order.amount * 100, //paisa
-  //       purchase_order_id: order._id,
-  //       purchase_order_name: "test",
-  //     };
-
-  //     callKhalti(formData, req, res);
-  //   }
-  // } catch (err) {
-  //   return res.status(400).json({ error: err?.message || "No Orders found" });
-  // }
 };
 
 

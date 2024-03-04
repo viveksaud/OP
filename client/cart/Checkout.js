@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Card from '@material-ui/core/Card'
 import {makeStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -51,16 +51,12 @@ export default function Checkout (){
       products: cart.getCart(),
       customer_name: user.name,
       customer_email:user.email,
-      delivery_address: { street: '', city: '', state: '', zipcode: '', country:''}
+      delivery_address: { street: 'janakitol', city: 'mahendranagar', state: 'sudur', zipcode: '140', country:'Nepal'}
     },
     error: ''
   })
 
-///
-const handlePayment = async () =>{ 
-  
-} 
-///
+
   const handleCustomerChange = name => event => {
     let checkoutDetails = values.checkoutDetails
     checkoutDetails[name] = event.target.value || undefined
@@ -106,7 +102,7 @@ const handlePayment = async () =>{
         </Typography>
         <TextField
           id="street"
-          label="Tole"
+          label="Street Address"
           className={classes.streetField}
           value={values.checkoutDetails.delivery_address.street}
           onChange={handleAddressChange("street")}
@@ -122,47 +118,31 @@ const handlePayment = async () =>{
           margin="normal"
         />
         <TextField
-          id="city"
-          label="District"
-          className={classes.addressField}
-          value={values.checkoutDetails.delivery_address.city}
-          onChange={handleAddressChange("city")}
-          margin="normal"
-        />
-        <TextField
           id="state"
-          label="Province"
+          label="State"
           className={classes.addressField}
           value={values.checkoutDetails.delivery_address.state}
           onChange={handleAddressChange("state")}
           margin="normal"
         />
-        <TextField
-          id="city"
-          label="Contact No"
-          className={classes.addressField}
-          value={values.checkoutDetails.delivery_address.city}
-          onChange={handleAddressChange("city")}
-          margin="normal"
-        />
         <br />
-        {/* <TextField
+        <TextField
           id="zipcode"
           label="Zip Code"
           className={classes.addressField}
           value={values.checkoutDetails.delivery_address.zipcode}
           onChange={handleAddressChange("zipcode")}
           margin="normal"
-        /> */}
-        {/* <TextField
+        />
+        <TextField
           id="country"
           label="Country"
           className={classes.addressField}
           value={values.checkoutDetails.delivery_address.country}
           onChange={handleAddressChange("country")}
           margin="normal"
-        /> */}
-        <br />{" "}
+        />
+        <br />
         {values.error && (
           <Typography component="p" color="error">
             <Icon color="error" className={classes.error}>
@@ -172,22 +152,7 @@ const handlePayment = async () =>{
           </Typography>
         )}
         <div>
-          {/* <Elements> */}
-          <PlaceOrder checkoutDetails={values.checkoutDetails} />
-          {/* </Elements> */}
-          <h1>Pay vai</h1>
-          <button
-            style={{ background: "#55aa33", margin: 10 }}
-            onClick={() => handlePayment("esewa")}
-          >
-            Vai Esewa Payment
-          </button>
-          <button
-            style={{ background: "#95aa33", margin: 10 }}
-            onClick={() => handlePayment("khalti")}
-          >
-            Vai Khalti Payment
-          </button>
+          <PlaceOrder checkoutDetails={values.checkoutDetails} />  
         </div>
       </Card>
     );

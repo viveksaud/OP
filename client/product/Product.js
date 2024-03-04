@@ -99,7 +99,7 @@ export default function Product ({match}) {
 }, [match.params.productId])
 
     const imageUrl = product._id
-          ? `/api/product/image/Rs{product._id}?Rs{new Date().getTime()}`
+          ? `/api/product/image/${product._id}?${new Date().getTime()}`
           : '/api/product/defaultphoto'
     return (
         <div className={classes.root}>

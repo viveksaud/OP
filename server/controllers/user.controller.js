@@ -21,9 +21,6 @@ const create = async (req, res) => {
   }
 }
 
-/**
- * Load user and append to req.
- */
 const userByID = async (req, res, next, id) => {
   try {
     let user = await User.findById(id)
@@ -35,7 +32,7 @@ const userByID = async (req, res, next, id) => {
     next()
   } catch (err) {
     return res.status('400').json({
-      error: "Could not retrieve user!!!!!!!!!!!!!!!!"
+      error: "Could not retrieve user!!!!!!!!!!!!!!!!user.controller"
     })
   }
 }

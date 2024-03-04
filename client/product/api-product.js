@@ -27,6 +27,18 @@ const read = async (params, signal) => {
   }
 }
 
+const readp = async (params, signal) => {
+  try {
+    let response = await fetch('/api/products/' + params.productId, {
+      method: 'GET',
+      signal: signal
+    })
+    return response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 const update = async (params, credentials, product) => {
   try {
     let response = await fetch('/api/product/' + params.shopId +'/'+params.productId, {
@@ -123,6 +135,7 @@ const list = async (params, signal) => {
 export {
   create,
   read,
+  readp,
   update,
   remove,
   listByShop,

@@ -14,11 +14,11 @@ exports.getAllOrders = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   try {
-    console.log(req.body);
     const order = await orderService.save(req.body);
     const signature = this.createSignature(
       `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
     );
+    console.log(signature);
     if (order.payment_method === "esewa") {
       const formData = {
         amount: order.amount,
@@ -51,7 +51,7 @@ exports.createOrder = async (req, res) => {
       callKhalti(formData, req, res);
     }
   } catch (err) {
-    return res.status(400).json({ error: err?.message || "No Orders found" });
+    return res.status(400).json({ error111: err?.message || "No Orders found" });
   }
 };
 

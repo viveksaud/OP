@@ -13,13 +13,13 @@ import cart from './../cart/cart-helper'
 
 const isActive = (history, path) => {
   if (history.location.pathname == path)
-    return {color: '#bef67a'}
+    return { color: "#F9FF21" };//yellow
   else
     return {color: '#ffffff'}
 }
 const isPartActive = (history, path) => {
   if (history.location.pathname.includes(path))
-    return {color: '#bef67a'}
+    return { color: "#F9FF21" };
   else
     return {color: '#ffffff'}
 }
@@ -27,7 +27,7 @@ const Menu = withRouter(({history}) => (
   <AppBar position="static">
     <Toolbar>
       <Typography variant="h6" color="inherit">
-        Online Pasal(Bazzar)
+        MarketSphere
       </Typography>
       <div>
         <Link to="/">
@@ -38,9 +38,9 @@ const Menu = withRouter(({history}) => (
         <Link to="/shops/all">
           <Button style={isActive(history, "/shops/all")}>All Shops</Button>
         </Link>
-        <Link to="/auctions/all">
+        {/* <Link to="/auctions/all">
           <Button style={isActive(history, "/auctions/all")}>All Auctions</Button>
-        </Link>
+        </Link> */}
         <Link to="/cart">
           <Button style={isActive(history, "/cart")}>
             Cart
@@ -67,7 +67,7 @@ const Menu = withRouter(({history}) => (
         auth.isAuthenticated() && (<span>
           {auth.isAuthenticated().user.seller && (<>
             <Link to="/seller/shops"><Button style={isPartActive(history, "/seller/")}>My Shops</Button></Link>
-            <Link to="/myauctions"><Button style={isPartActive(history, "/myauctions")}>My Auctions</Button></Link>
+            {/* <Link to="/myauctions"><Button style={isPartActive(history, "/myauctions")}>My Auctions</Button></Link> */}
             </>
           )}
           <Link to={"/user/" + auth.isAuthenticated().user._id}>

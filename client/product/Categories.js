@@ -10,47 +10,49 @@ import Icon from '@material-ui/core/Icon'
 import {list} from './api-product.js'
 import Products from './Products'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
     background: theme.palette.background.paper,
   },
   gridList: {
-    flexWrap: 'nowrap',
-    width:'100%',
-    transform: 'translateZ(0)',
+    flexWrap: "nowrap",
+    width: "100%",
+    transform: "translateZ(0)",
   },
   tileTitle: {
-    verticalAlign: 'middle',
+    verticalAlign: "middle",
     lineHeight: 2.5,
-    textAlign: 'center',
-    fontSize: '1.35em',
-    margin: '0 4px 0 0',
+    textAlign: "center",
+    fontSize: "1.35em",
+    margin: "0 4px 0 0",
   },
   card: {
-    margin: 'auto',
-    marginTop: 20
+    margin: "auto",
+    marginTop: 20,
   },
   title: {
-    padding:`Rs{theme.spacing(3)}px Rs{theme.spacing(2.5)}px Rs{theme.spacing(2)}px`,
+    padding: `${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(
+      2
+    )}px`,
     color: theme.palette.openTitle,
-    backgroundColor: '#80808024',
-    fontSize: '1.1em'
+    backgroundColor: "#80808024",
+    fontSize: "1.1em",
   },
   icon: {
-    verticalAlign: 'sub',
-    color: '#738272',
-    fontSize: '0.9em'
+    verticalAlign: "sub",
+    color: "#6420AA",
+    fontSize: "0.9em",
   },
   link: {
-    color: '#4d6538',
-    textShadow: '0px 2px 12px #ffffff',
-    cursor:'pointer'
-  }
-}))
+    color: "#6420AA", //category text
+    textShadow: "0px 2px 6px #fff",
+    cursor: "pointer",
+  },
+}));
 
 export default function Categories(props){
   const classes = useStyles()

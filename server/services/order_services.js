@@ -1,4 +1,4 @@
-const Order = require("../models/order.model");
+const {Order} = require("../models/order.model");
 
 exports.save = async (order) => {
   if (order && !order._id) {

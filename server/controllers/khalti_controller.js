@@ -1,21 +1,26 @@
 const axios = require("axios");
 
+const dotenv = require("dotenv");
+dotenv.config();
+const sk = process.env.secret_key;
+const khalti_initiate_url = process.env.khalti_initiate_url;
+const khalti_lookup_url = process.env.khalti_lookup_url;
+
 exports.callKhalti = async (formData, req, res) => {
   try {
     const headers = {
-      Authorization: `Key 24dac8f244d04c98b5527948935927aa`,
+      Authorization: `Key ${sk}`,
       "Content-Type": "application/json",
     };
-    console.log(headers);
-    const response = await axios.post(
-      "https://a.khalti.com/api/v2/epayment/initiate/",
-      formData,
-      {
-        headers,
-      }
-    );
+
+    const response = await axios.post(khalti_initiate_url, formData, {
+      headers,
+    });
+
+    console.log("response hai--", response);
     console.log(response.data);
     console.log(response.data.payment_url);
+    // res.redirect(response.data.payment_url);
     res.json({
       message: "khalti success",
       payment_method: "khalti",
@@ -38,24 +43,18 @@ exports.handleKhaltiCallback = async (req, res, next) => {
     }
 
     const headers = {
-      Authorization: `Key 24dac8f244d04c98b5527948935927aa`,
+      Authorization: `Key ${sk}`,
       "Content-Type": "application/json",
     };
-    const response = await axios.post(
-      "https://a.khalti.com/api/v2/epayment/lookup/",
-      { pidx },
-      { headers }
-    );
+    const response = await axios.post(khalti_lookup_url, { pidx }, { headers });
 
-    console.log(response.data);
+    console.log("handle khalti callback ko response data---", response.data);
     if (response.data.status !== "Completed") {
       return res.status(400).json({ error: "Payment not completed" });
     }
 
-    console.log(purchase_order_id, pidx);
-    req.transaction_uuid = purchase_order_id;
-    req.transaction_code = pidx;
     next();
+    // return res.json({ orderId: purchase_order_id });
   } catch (err) {
     console.log(err);
     return res

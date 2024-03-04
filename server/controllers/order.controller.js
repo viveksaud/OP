@@ -1,12 +1,12 @@
 import {Order, CartItem} from '../models/order.model'
 import errorHandler from './../helpers/dbErrorHandler'
 
-//
+
 const orderService = require("../services/order_services");
 const axios = require("axios");
 const crypto = require("crypto");
 const { callKhalti } = require("../controllers/khalti_controller");
-//
+
 
 const create = async (req, res) => {
   try {
@@ -15,30 +15,13 @@ const create = async (req, res) => {
     let result = await order.save()
     res.status(200).json(result)
 
-
-    //here start
-    // const formData = {
-    //   return_url: "http://localhost:3000/api/khalti/callback",
-    //   website_url: "http://localhost:3000",
-    //   amount: order.amount * 100, //paisa
-    //   purchase_order_id: order._id,
-    //   purchase_order_name: "test",
-    // };
-
-    // callKhalti(formData, req, res);
-    //here end
   } catch (err){
-    // return res.status(400).json({
-    //   error: errorHandler.getErrorMessage(err)
-    // })
-    return res.status(400).json({ error: err?.message || "No Orders found" });
+    return res.status(400).json({ errorAAA: err?.message || "No Orders found" });
   }
 }
 
-//here-start
 exports.createOrder = async (req, res) => {
   try {
-    console.log(req.body);
     const order = await orderService.save(req.body);
     const signature = this.createSignature(
       `total_amount=${order.amount},transaction_uuid=${order._id},product_code=EPAYTEST`
@@ -75,13 +58,12 @@ exports.createOrder = async (req, res) => {
       callKhalti(formData, req, res);
     }
   } catch (err) {
-    return res.status(400).json({ error: err?.message || "No Orders found" });
+    return res.status(400).json({ errorBBB: err?.message || "No Orders found" });
   }
 };
 
 exports.updateOrderAfterPayment = async (req, res, next) => {
   try {
-    console.log(req.body);
     const order = await orderService.findById(req.transaction_uuid);
     order.status = "paid";
     order.transaction_code = req.transaction_code;
@@ -104,7 +86,6 @@ exports.createSignature = (message) => {
   return hashInBase64;
 };
 
-//here-end
 
 
 
@@ -142,7 +123,12 @@ const getStatusValues = (req, res) => {
 
 const orderByID = async (req, res, next, id) => {
   try {
-    let order = await Order.findById(id).populate('products.product', 'name price').populate('products.shop', 'name').exec()
+    let order = await Order.findById(id)
+      
+    // let order = await Order.findById(id)
+    //   .populate("products.product", "name price")
+    //   .populate("products.shop", "name")
+    //   .exec();
     if (!order)
       return res.status('400').json({
         error: "Order not found"
@@ -151,7 +137,7 @@ const orderByID = async (req, res, next, id) => {
     next()
   } catch (err){
     return res.status(400).json({
-      error: errorHandler.getErrorMessage(err)
+      error111: errorHandler.getErrorMessage(err)
     })
   }
 }

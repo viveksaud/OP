@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#80808024'
   }),
   title: {
-    margin: `Rs{theme.spacing(4)}px 0 Rs{theme.spacing(2)}px`,
+    margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
     color: theme.palette.openTitle,
     fontSize: '1.1em'
   },
@@ -104,7 +104,7 @@ export default function Suggestions (props) {
                     </Typography>
                   </CardContent>
                   <div className={classes.controls}>
-                    <Typography type="subheading" component="h3" className={classes.price} color="primary">$ {item.price}</Typography>
+                    <Typography type="subheading" component="h3" className={classes.price} color="primary">Rs {item.price}</Typography>
                       <span className={classes.actions}>
                         <Link to={'/product/'+item._id}>
                           <IconButton color="secondary" dense="dense">
